@@ -2,7 +2,8 @@ import os
 import glob
 import argparse
 import matplotlib
-
+from PIL import Image
+import numpy as np
 # Keras / TensorFlow
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '5'
 from keras.models import load_model
@@ -37,8 +38,12 @@ outputs = predict(model, inputs)
 #matplotlib.use('TkAgg')   
 
 # Display results
-viz = display_images(outputs.copy(), inputs.copy())
-plt.figure(figsize=(10,5))
-plt.imshow(viz)
-plt.savefig('test.png')
-plt.show()
+# viz = display_images(outputs.copy(), inputs.copy())
+# plt.figure(figsize=(10,5))
+# plt.imshow(viz)
+# plt.savefig('test.png')
+# plt.show()
+viz = display_images(outputs.copy())
+vis = np.array(viz)
+img = Image.fromarray(np.array(vis*255, dtype=np.uint8))
+img.save("test.png")
